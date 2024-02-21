@@ -6,11 +6,12 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:31:01 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/02/21 13:51:49 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:23:11 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <stdlib.h>
 
 int	init_data(t_data *data, char **argv)
 {
@@ -47,8 +48,10 @@ void	init_threads(t_data *data)
 	{
 		data->philosophers[i].left_fork = &data->forks[i - 1];
 		data->philosophers[i].right_fork = &data->forks[i];
+		printf("left fork %p right fork %p\n", data->philosophers[i].left_fork, data->philosophers[i].right_fork);
 		i++;
 	}
+	exit(0);
 	i = 0;
 	while (i < data->philosphers)
 	{
