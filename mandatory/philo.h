@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 11:10:23 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/02/20 23:46:40 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/02/21 12:45:53 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,8 @@ typedef struct s_data
 	int			philosphers;
 } t_data;
 
+int		_atoi(char *str);
+void	*philo_start(void *arg);
+int		init_data(t_data *data, char **argv);
+void	init_threads(t_data *data);
 #endif
