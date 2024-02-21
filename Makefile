@@ -6,7 +6,7 @@
 #    By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/16 11:10:35 by aabouqas          #+#    #+#              #
-#    Updated: 2024/02/21 13:27:53 by aabouqas         ###   ########.fr        #
+#    Updated: 2024/02/21 13:52:49 by aabouqas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,9 @@ $(MAIN_OBJ): $(MAIN) $(HEADER)
 
 mandatory/%.o: mandatory/%.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
+
+fclean: clean
+	rm -f $(NAME)
 
 clean:
 	rm -rf $(OBJ)
