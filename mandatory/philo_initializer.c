@@ -6,12 +6,12 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 12:31:01 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/02/21 14:23:11 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/02/23 15:25:41 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <stdlib.h>
+#include <pthread.h>
 
 int	init_data(t_data *data, char **argv)
 {
@@ -28,6 +28,8 @@ int	init_data(t_data *data, char **argv)
 		data->philosophers[i].time_to_eat = _atoi(argv[3]);
 		data->philosophers[i].time_to_sleep = _atoi(argv[4]);
 		data->philosophers[i].number = i + 1;
+		data->philosophers[i].last_meal_time = 0;
+		data->philosophers[i].start_time = getime();
 		i++;
 	}
 	return (0);
@@ -40,7 +42,10 @@ void	init_threads(t_data *data)
 	i = 0;
 	data->forks = malloc (sizeof(pthread_mutex_t) * data->philosphers);
 	while (i < data->philosphers)
+	{
 		pthread_mutex_init(&data->forks[i++], NULL);
+		pthread_mutex_init(&data->philosophers[i].lock_printf, NULL);
+	}
 	data->philosophers[0].left_fork = &data->forks[data->philosphers - 1];
 	data->philosophers[0].right_fork = &data->forks[0];
 	i = 1;
@@ -48,10 +53,8 @@ void	init_threads(t_data *data)
 	{
 		data->philosophers[i].left_fork = &data->forks[i - 1];
 		data->philosophers[i].right_fork = &data->forks[i];
-		printf("left fork %p right fork %p\n", data->philosophers[i].left_fork, data->philosophers[i].right_fork);
 		i++;
 	}
-	exit(0);
 	i = 0;
 	while (i < data->philosphers)
 	{
@@ -60,5 +63,5 @@ void	init_threads(t_data *data)
 	}
 	i = 0;
 	while (i < data->philosphers)
-		pthread_join (data->philosophers[i++].philosopher, NULL);
+		pthread_detach(data->philosophers[i++].philosopher);
 }
