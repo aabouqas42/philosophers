@@ -6,12 +6,12 @@
 #    By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/16 11:10:35 by aabouqas          #+#    #+#              #
-#    Updated: 2024/02/24 18:39:55 by aabouqas         ###   ########.fr        #
+#    Updated: 2024/02/25 22:30:18 by aabouqas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc 
-CFLAGS = -fsanitize=address -g
+CFLAGS = 
 SRC = mandatory/philo_initializer.c mandatory/philo_utils.c mandatory/states.c
 NAME = philo
 MAIN = philo.c

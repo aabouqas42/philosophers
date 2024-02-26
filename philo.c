@@ -6,13 +6,15 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 11:15:21 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/02/24 20:47:00 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/02/26 10:15:07 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatory/philo.h" 
 #include <pthread.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <sys/_types/_size_t.h>
 
 
 size_t	getime()
@@ -26,8 +28,10 @@ size_t	getime()
 void	_usleep(size_t mic_sec)
 {
 	size_t	tosleep;
-	tosleep = (getime() * 1000) + mic_sec + 1;
-	while (getime() * 1000 < tosleep);
+	// tosleep = (getime() * 1000) + mic_sec;
+	tosleep = getime();
+	while ((getime() - tosleep) * 1000 < mic_sec);
+	// while (getime() * 1000 < tosleep);
 }
 
 void	*philo_start(void *arg)
@@ -37,39 +41,49 @@ void	*philo_start(void *arg)
 	philo = (t_philos *)arg;
 	while (1)
 	{
-		// printf("%d <%p, %p>\n", philo->number, philo->left_fork, philo->right_fork);
 		ph_do(philo, "is thinking");
-		pthread_mutex_unlock(philo->pf);
 		pthread_mutex_lock(philo->left_fork);
+		ph_do(philo, "has taken a fork");
 		ph_do(philo, "is thinking");
 		pthread_mutex_lock(philo->right_fork);
 		ph_do(philo, "has taken a fork");
 		ph_do(philo,"is eating");
-		usleep(philo->time_to_eat * 1000);
-		philo->last_meal_time = getime();
+		pthread_mutex_lock(philo->meal_time);
+		philo->last_meal = getime();
+		pthread_mutex_unlock(philo->meal_time);
+		_usleep(philo->time_to_eat * 1000);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
 		ph_do(philo, "is sleeping");
-		usleep(philo->time_to_sleep * 1000);
+		_usleep(philo->time_to_sleep * 1000);
 	}
 	return (NULL);
 }
 
 int	someone_dead(t_data data)
 {
-	int	i;
+	size_t	last_meal;
+	size_t	start_time;
+	int		i;
 
 	while (1)
 	{
 		i = 0;
-		while (i < data.philosphers)
+		while (i < data.number_of_philos)
 		{
-			// printf("%zu\n", getime() - data.philosophers[i].last_meal_time);
-			if (getime() - data.philosophers[i].last_meal_time >= data.philosophers[i].time_to_die + 10)
+			pthread_mutex_lock(data.philos[i].meal_time);
+			last_meal = getime() - data.philos[i].last_meal;
+			start_time = getime() - data.philos[i].start_time;
+			if (last_meal >= data.philos[i].time_to_die)
 			{
-				printf("%zu %d is dead\n", getime() - data.philosophers[i].last_meal_time, data.philosophers[i].number);
+			pthread_mutex_unlock(data.philos[i].meal_time);
+				pthread_mutex_lock(data.philos[i].pf);
+				printf("%zu %d is dead\n", start_time, data.philos[i].number);
+				pthread_mutex_destroy(data.philos[i].pf);
 				return 1;
 			}
+			pthread_mutex_unlock(data.philos[i].meal_time);
+			// pthread_mutex_unlock(data.philos[i].meal_time);
 			i++;
 		}
 	}
@@ -79,14 +93,10 @@ int	someone_dead(t_data data)
 int	main(int argc, char *argv[])
 {
 	t_data	data;
-	int		i;
-	
+
 	input_checker(argc, argv);
 	init_data(&data, argv);
 	init_threads(&data);
-	// someone_dead(data);
-	i = 0;
-	while (i < data.philosphers)
-		pthread_detach(data.philosophers[i++].philosopher);
+	someone_dead(data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 11:10:23 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/02/24 18:42:37 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/02/25 21:36:54 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,23 @@ typedef struct s_philos
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*pf;
-	pthread_t		philosopher;
+	pthread_mutex_t	*meal_time;
+	pthread_t		philo;
 	size_t			time_to_die;
 	size_t			time_to_eat;
 	size_t			time_to_sleep;
-	size_t			last_meal_time;
-	int				number;
+	size_t			last_meal;
 	size_t			start_time;
+	int				number;
 } t_philos;
 
 typedef struct s_data
 {
-	t_philos		*philosophers;
+	t_philos		*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	pf;
-	int				philosphers;
+	pthread_mutex_t	meal_time_lock;
+	int				number_of_philos;
 } t_data;
 
 int		_atoi(char *str);
