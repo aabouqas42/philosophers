@@ -5,14 +5,15 @@
 #                                                     +:+ +:+         +:+      #
 #    By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/02/16 11:10:35 by aabouqas          #+#    #+#              #
-#    Updated: 2024/02/25 22:30:18 by aabouqas         ###   ########.fr        #
+#    Created: 2024/02/26 10:22:26 by aabouqas          #+#    #+#              #
+#    Updated: 2024/02/27 11:36:37 by aabouqas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+
 CC = cc 
-CFLAGS = 
-SRC = mandatory/philo_initializer.c mandatory/philo_utils.c mandatory/states.c
+CFLAGS = -fsanitize=address
+SRC = mandatory/philo_init.c mandatory/philo_utils.c mandatory/memory_manager.c mandatory/dead_manager.c
 NAME = philo
 MAIN = philo.c
 MAIN_OBJ = philo.o
