@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:19 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/02/27 13:06:22 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/02/28 17:46:56 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,15 @@
 
 # include <pthread.h>
 # include <stdio.h>
+#include <sys/_pthread/_pthread_mutex_t.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/time.h>
+
+# define THINKING "is thinking"
+# define EATING "is eating"
+# define TAKING_FORK "has taking a fork"
+# define SLEAPING "is sleeping"
 
 typedef struct s_philo
 {
@@ -25,6 +31,7 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*pf;
 	pthread_mutex_t	meal_lock;
+	pthread_mutex_t	check_lock;
 	pthread_t		philo;
 	size_t			start_time;
 	size_t			last_meal;
