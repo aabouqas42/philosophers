@@ -6,14 +6,14 @@
 #    By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/26 10:22:26 by aabouqas          #+#    #+#              #
-#    Updated: 2024/02/28 18:20:28 by aabouqas         ###   ########.fr        #
+#    Updated: 2024/02/29 20:27:50 by aabouqas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc 
-CFLAGS = 
-SRC = mandatory/philo_init.c mandatory/philo_utils.c mandatory/memory_manager.c mandatory/dead_manager.c
+CFLAGS = -fsanitize=address -g
+SRC = mandatory/philo_init.c mandatory/philo_utils.c mandatory/memory_manager.c mandatory/time_to_die.c mandatory/states.c
 NAME = philo
 MAIN = philo.c
 MAIN_OBJ = philo.o

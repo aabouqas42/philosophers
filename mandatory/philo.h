@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:19 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/02/28 17:46:56 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/02/29 22:51:15 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ typedef struct s_philo
 {
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*pf;
-	pthread_mutex_t	meal_lock;
-	pthread_mutex_t	check_lock;
+	pthread_mutex_t	*printf;
+	pthread_mutex_t	*lock;
 	pthread_t		philo;
 	size_t			start_time;
 	size_t			last_meal;
@@ -40,6 +39,7 @@ typedef struct s_philo
 	int				time_to_eat;
 	int				time_to_die;
 	int				time_to_sleep;
+	int				*somone_died;
 }	t_philo;
 
 
@@ -47,8 +47,9 @@ typedef struct s_data
 {
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
-	pthread_mutex_t	pf;
-	int				number_of_philos;
+	pthread_mutex_t	printf;
+	int				somone_died;
+	int				n_philos;
 }	t_data;
 
 int		_atoi(char *s);
@@ -64,5 +65,8 @@ void	*_main(void *arg);
 int		print_state(t_philo *philo, char *state);
 void	_usleep(size_t mic);
 int		somone_died(t_data *data);
+void	thinking(t_philo *philo);
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
 
 #endif

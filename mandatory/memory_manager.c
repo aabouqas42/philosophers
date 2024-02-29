@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:25 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/02/28 18:03:56 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/02/29 18:59:17 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,37 @@ void	_free(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->number_of_philos)
+	while (i < data->n_philos)
 	{
 		pthread_mutex_destroy(&data->forks[i]);
-		pthread_mutex_destroy(&data->philos[i].meal_lock);
 		i++;
 	}
-	pthread_mutex_destroy(&data->pf);
+	pthread_mutex_destroy(&data->printf);
 	free (data->forks);
 	free (data->philos);
 }
 
 int	memory_init(t_data *data, char **argv)
 {
-	int		pf_failed;
-	int		mt_failed;
 	int		i;
 
-	data->number_of_philos = _atoi(argv[1]);
-	data->philos = malloc (sizeof(t_philo) * data->number_of_philos);
+	data->n_philos = _atoi(argv[1]);
+	data->philos = NULL;
+	data->forks = NULL;
+	data->philos = malloc (sizeof(t_philo) * data->n_philos);
 	if (data->philos == NULL)
 		return (_puts("Unexpected Error\n", 2), -1);
-	data->forks = malloc (sizeof(pthread_mutex_t) * data->number_of_philos);
+	data->forks = malloc (sizeof(pthread_mutex_t) * data->n_philos);
 	if (data->forks == NULL)
 		return (_free(data), _puts("Unexpected Error\n", 2), -1);
-	pf_failed = pthread_mutex_init(&data->pf, NULL);
-	if (pf_failed)
+	if (pthread_mutex_init(&data->printf, NULL))
 		return (_free(data), _puts("Unexpected Error\n", 2), -1);
 	i = 0;
-	while (i < data->number_of_philos)
+	while (i < data->n_philos)
 	{
-		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
+		if (pthread_mutex_init(&data->forks[i], NULL))
 			return (_free(data), _puts("Unexpected Error\n", 2), -1);
-		if (pthread_mutex_init(&data->philos[i].meal_lock, NULL) != 0)
-			return (_free(data), _puts("Unexpected Error\n", 2), -1);
+		data->philos[i].printf = &data->printf;
 		i++;
 	}
 	return (0);
