@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/01 12:32:11 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/01 16:39:31 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,11 @@ void	*_main(void *arg)
 		usleep(100);
 	while (1)
 	{
-		if (thinking(philo))
-			return (NULL);
-		if (eating(philo))
-			return (NULL);
+		thinking(philo);
+		eating(philo);
 		if (philo->meal_count == 0)
 			return (NULL);
-		if (sleeping(philo))
-			return (NULL);
+		sleeping(philo);
 	}
 	return (NULL);
 }

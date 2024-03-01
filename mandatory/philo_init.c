@@ -6,12 +6,13 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/01 12:51:24 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:06:17 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
+#include <stdio.h>
 
 
 void	forks_init(t_data *data)
@@ -81,8 +82,7 @@ int	print_state(t_philo *philo, char *state)
 {
 	size_t	time;
 
-	if (pthread_mutex_lock(philo->printf))
-		return 1;
+	pthread_mutex_lock(philo->printf);
 	time = getime() - philo->start_time;
 	printf("%zu %d %s\n", time, philo->number, state);
 	pthread_mutex_unlock(philo->printf);
