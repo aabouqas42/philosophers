@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:19 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/02/29 22:51:15 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/01 12:25:33 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct s_philo
 	int				time_to_eat;
 	int				time_to_die;
 	int				time_to_sleep;
-	int				*somone_died;
 }	t_philo;
 
 
@@ -48,7 +47,7 @@ typedef struct s_data
 	pthread_mutex_t	*forks;
 	t_philo			*philos;
 	pthread_mutex_t	printf;
-	int				somone_died;
+	pthread_mutex_t	lock;
 	int				n_philos;
 }	t_data;
 
@@ -64,9 +63,9 @@ void	forks_init(t_data *data);
 void	*_main(void *arg);
 int		print_state(t_philo *philo, char *state);
 void	_usleep(size_t mic);
-int		somone_died(t_data *data);
-void	thinking(t_philo *philo);
-void	eating(t_philo *philo);
-void	sleeping(t_philo *philo);
+int		monitor(t_data *data);
+int		thinking(t_philo *philo);
+int		eating(t_philo *philo);
+int		sleeping(t_philo *philo);
 
 #endif

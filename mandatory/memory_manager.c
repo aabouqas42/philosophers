@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:25 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/02/29 18:59:17 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/01 12:26:36 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	memory_init(t_data *data, char **argv)
 	data->forks = malloc (sizeof(pthread_mutex_t) * data->n_philos);
 	if (data->forks == NULL)
 		return (_free(data), _puts("Unexpected Error\n", 2), -1);
-	if (pthread_mutex_init(&data->printf, NULL))
+	if (pthread_mutex_init(&data->printf, NULL)
+		|| pthread_mutex_init(&data->lock, NULL))
 		return (_free(data), _puts("Unexpected Error\n", 2), -1);
 	i = 0;
 	while (i < data->n_philos)
@@ -48,6 +49,7 @@ int	memory_init(t_data *data, char **argv)
 		if (pthread_mutex_init(&data->forks[i], NULL))
 			return (_free(data), _puts("Unexpected Error\n", 2), -1);
 		data->philos[i].printf = &data->printf;
+		data->philos[i].lock = &data->lock;
 		i++;
 	}
 	return (0);

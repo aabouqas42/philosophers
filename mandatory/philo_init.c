@@ -6,14 +6,13 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/02/29 21:48:06 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/01 12:51:24 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
-#include <stdio.h>
-#include <sys/_types/_size_t.h>
+
 
 void	forks_init(t_data *data)
 {
@@ -43,7 +42,7 @@ int	create_threads(t_data *data)
 		i++;
 	}
 	i = 0;
-	_usleep(100);
+	// _usleep(100);
 	while (i < data->n_philos)
 	{
 		if (pthread_detach(data->philos[i].philo) == 1)
@@ -53,13 +52,13 @@ int	create_threads(t_data *data)
 	return (0);
 }
 
+
 int	data_init(t_data *data, int argc, char **argv)
 {
 	size_t	start_time;
 	int		i;
 
 	start_time = getime();
-	data->somone_died = 0;
 	i = 0;
 	while (i < data->n_philos)
 	{
@@ -69,7 +68,6 @@ int	data_init(t_data *data, int argc, char **argv)
 		data->philos[i].time_to_die = _atoi(argv[2]);
 		data->philos[i].time_to_eat = _atoi(argv[3]);
 		data->philos[i].time_to_sleep = _atoi(argv[4]);
-		data->philos[i].somone_died = &data->somone_died;
 		if (argc == 6)
 			data->philos[i].meal_count = _atoi(argv[5]);
 		else
@@ -83,7 +81,8 @@ int	print_state(t_philo *philo, char *state)
 {
 	size_t	time;
 
-	pthread_mutex_lock(philo->printf);
+	if (pthread_mutex_lock(philo->printf))
+		return 1;
 	time = getime() - philo->start_time;
 	printf("%zu %d %s\n", time, philo->number, state);
 	pthread_mutex_unlock(philo->printf);
