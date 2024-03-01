@@ -6,14 +6,11 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/01 17:22:25 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/01 19:55:04 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
-#include <stdio.h>
-#include <unistd.h>
 
 
 void	forks_init(t_data *data)
@@ -33,16 +30,17 @@ void	forks_init(t_data *data)
 
 int	create_threads(t_data *data)
 {
+	t_philo	*philo;
 	int		i;
 
 	i = 0;
 	while (i < data->n_philos)
 	{
-		if (pthread_create(&data->philos[i].philo,
-			NULL, _main, &data->philos[i]))
+		philo = &data->philos[i];
+		if (pthread_create(&philo->philo, NULL, _main, &data->philos[i]))
 			return (_free(data), -1);
 		if (pthread_detach(data->philos[i].philo) == 1)
-			return (_free(data), 	-1);
+			return (_free(data),-1);
 		i++;
 	}
 	return (0);
@@ -77,8 +75,7 @@ int	print_state(t_philo *philo, char *state)
 {
 	size_t	time;
 
-	if (pthread_mutex_lock(philo->printf))	
-		return (1);
+	pthread_mutex_lock(philo->printf);
 	time = getime() - philo->start_time;
 	printf("%zu %d %s\n", time, philo->number, state);
 	pthread_mutex_unlock(philo->printf);

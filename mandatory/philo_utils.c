@@ -6,11 +6,12 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:17 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/02/29 13:25:34 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/01 19:52:23 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <sys/_types/_timeval.h>
 
 void	_puts(char *s, int fd)
 {
@@ -63,11 +64,11 @@ size_t	getime(void)
 	return (_timeval.tv_sec * 1000 + _timeval.tv_usec / 1000);
 }
 
-void	_usleep(size_t mic)
+void	_usleep(size_t ms)
 {
 	size_t	tosleep;
 
 	tosleep = getime();
-	while (getime() - tosleep < mic)
+	while (getime() - tosleep < ms)
 		(void)0;
 }
