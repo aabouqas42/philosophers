@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:19 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/01 17:01:41 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/01 23:19:05 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <pthread.h>
 # include <stdio.h>
-#include <sys/_pthread/_pthread_mutex_t.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/time.h>
@@ -31,6 +30,7 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*printf;
 	pthread_mutex_t	*lock;
+	int				*someone_died;
 	pthread_t		philo;
 	size_t			start_time;
 	size_t			last_meal;
@@ -48,6 +48,8 @@ typedef struct s_data
 	t_philo			*philos;
 	pthread_mutex_t	printf;
 	pthread_mutex_t	lock;
+	pthread_mutex_t	dead;
+	int				someone_died;
 	int				n_philos;
 }	t_data;
 
