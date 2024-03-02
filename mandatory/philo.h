@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:19 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/02 19:20:09 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/02 22:11:22 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <pthread.h>
 # include <stdio.h>
+#include <sys/_pthread/_pthread_t.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/time.h>
@@ -32,9 +33,9 @@ typedef struct s_philo
 	pthread_mutex_t	*lock;
 	pthread_mutex_t	*died_mutex;
 	pthread_t		philo;
-	int				*someone_died;
 	size_t			start_time;
 	size_t			last_meal;
+	int				*someone_died;
 	int				meal_count;
 	int				number;
 	int				time_to_eat;
@@ -49,9 +50,10 @@ typedef struct s_data
 	t_philo			*philos;
 	pthread_mutex_t	printf;
 	pthread_mutex_t	lock;
-	pthread_mutex_t	dead_mutex;
-	int				someone_died;
+	pthread_mutex_t	died_mutex;
+	pthread_t		monitor;
 	int				n_philos;
+	int				someone_died;
 }	t_data;
 
 int		_atoi(char *s);
@@ -66,7 +68,7 @@ void	forks_init(t_data *data);
 void	*_main(void *arg);
 int		print_state(t_philo *philo, char *state);
 void	_usleep(size_t mic);
-int		monitor(t_data *data);
+void	*monitor(void *param);
 void	thinking(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);

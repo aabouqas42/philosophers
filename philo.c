@@ -6,12 +6,13 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/02 19:18:33 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/02 22:35:34 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatory/philo.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 void	*_main(void *arg)
@@ -20,14 +21,14 @@ void	*_main(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->number % 2)
-		usleep(1000);
-	while (1)
+		_usleep(100);
+	while (*philo->someone_died == 0)
 	{
-		thinking(philo);
 		eating(philo);
 		if (philo->meal_count == 0)
 			return (NULL);
 		sleeping(philo);
+		thinking(philo);
 	}
 	return (NULL);
 }
@@ -46,5 +47,4 @@ int	main(int argc, char **argv)
 	data_init(&data, argc, argv);
 	forks_init(&data);
 	create_threads(&data);
-	monitor(&data);
 }

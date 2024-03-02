@@ -6,12 +6,11 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:25 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/02 19:49:27 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/02 21:54:28 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
 void	_free(t_data *data)
 {
