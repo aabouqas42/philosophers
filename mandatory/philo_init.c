@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/02 22:36:13 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/02 23:08:58 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int	create_threads(t_data *data)
 		i++;
 	}
 	pthread_create(&_monitor, NULL, monitor, data);
-	pthread_join(_monitor, NULL);
 	i = 0;
 	while (i < data->n_philos)
 	{
 		pthread_join(data->philos[i].philo, NULL);
 		i++;
 	}
+	pthread_join(_monitor, NULL);
 	return (0);
 }
 
@@ -89,9 +89,11 @@ int	print_state(t_philo *philo, char *state)
 {
 	size_t	time;
 
+	if (*philo->someone_died)
+		return (1);
 	pthread_mutex_lock(philo->printf);
-	time = getime() - philo->start_time;
-	printf("%zu %d %s\n", time, philo->number, state);
+		time = getime() - philo->start_time;
+		printf("%zu %d %s\n", time, philo->number, state);
 	pthread_mutex_unlock(philo->printf);
 	return (0);
 }

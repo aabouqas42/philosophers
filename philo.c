@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/02 22:35:34 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/02 23:09:33 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void	*_main(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->number % 2)
 		_usleep(100);
-	while (*philo->someone_died == 0)
+	while (1)
 	{
+		if (*philo->someone_died)
+			return (NULL);
 		eating(philo);
 		if (philo->meal_count == 0)
 			return (NULL);

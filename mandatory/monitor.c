@@ -6,12 +6,11 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/02 22:41:14 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/02 23:07:45 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <unistd.h>
 
 void	*monitor(void *param)
 {
@@ -31,13 +30,12 @@ void	*monitor(void *param)
 			pthread_mutex_unlock(&data->lock);
 			if (time >= data->philos[i].time_to_die)
 			{
-				pthread_mutex_lock(&data->printf);
+				// pthread_mutex_lock(&data->printf);
 				data->someone_died = 1;
 				printf("%zu %d is died\n", time, data->philos[i].number);
 				return (0);
 			}
 			i++;
-			usleep(1);
 		}
 	}
 	return (0);
