@@ -6,12 +6,13 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/02 13:32:54 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/02 19:18:33 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatory/philo.h"
 #include <stdio.h>
+#include <unistd.h>
 
 void	*_main(void *arg)
 {
@@ -19,7 +20,7 @@ void	*_main(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->number % 2)
-		usleep(100);
+		usleep(1000);
 	while (1)
 	{
 		thinking(philo);

@@ -6,12 +6,11 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/02 13:36:10 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/02 20:01:24 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <unistd.h>
 
 int	monitor(t_data *data)
 {
@@ -19,26 +18,23 @@ int	monitor(t_data *data)
 	int		meal;
 	int		i;
 	
-	i = 0;
-	meal = 0;
 	while (1)
 	{
-		pthread_mutex_lock(data->philos[i].printf);
-		pthread_mutex_lock(data->philos[i].lock);
-		time = getime() - data->philos[i].last_meal;
-		meal += (data->philos[i].meal_count == 0);
-		pthread_mutex_unlock(data->philos[i].lock);
-		if (time >= data->philos[i].time_to_die)
+		pthread_mutex_lock(&data->printf);
+		(i = 0, meal = 0);
+		pthread_mutex_lock(&data->lock);
+		while (i < data->n_philos)
 		{
-			printf("%zu %d is died\n", time, data->philos[i].number);
-			return (1);
+			time = getime() - data->philos[i].last_meal;
+			if (time >= data->philos[i].time_to_die)
+			{
+				printf("%zu %d is died\n", time, data->philos[i].number);
+				return (0);
+			}
+			i++;
 		}
-		pthread_mutex_unlock(data->philos[i].printf);
-		if (meal == data->n_philos)
-			return (0);
-		i++;
-		if (i == data->n_philos)
-			(i = 0, meal = 0);
+		pthread_mutex_unlock(&data->lock);
+		pthread_mutex_unlock(&data->printf);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:19 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/01 23:19:05 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/02 19:20:09 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ typedef struct s_philo
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*printf;
 	pthread_mutex_t	*lock;
-	int				*someone_died;
+	pthread_mutex_t	*died_mutex;
 	pthread_t		philo;
+	int				*someone_died;
 	size_t			start_time;
 	size_t			last_meal;
 	int				meal_count;
@@ -48,7 +49,7 @@ typedef struct s_data
 	t_philo			*philos;
 	pthread_mutex_t	printf;
 	pthread_mutex_t	lock;
-	pthread_mutex_t	dead;
+	pthread_mutex_t	dead_mutex;
 	int				someone_died;
 	int				n_philos;
 }	t_data;

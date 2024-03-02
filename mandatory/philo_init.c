@@ -6,12 +6,13 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/02 13:32:49 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/02 19:48:48 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 
@@ -55,14 +56,12 @@ int	data_init(t_data *data, int argc, char **argv)
 	int		i;
 
 	start_time = getime();
-	data->someone_died = 0;
 	i = 0;
 	while (i < data->n_philos)
 	{
 		data->philos[i].number = i + 1;
 		data->philos[i].start_time = start_time;
 		data->philos[i].last_meal = start_time;
-		data->philos[i].someone_died = &data->someone_died;
 		data->philos[i].time_to_die = _atoi(argv[2]);
 		data->philos[i].time_to_eat = _atoi(argv[3]);
 		data->philos[i].time_to_sleep = _atoi(argv[4]);
@@ -75,13 +74,12 @@ int	data_init(t_data *data, int argc, char **argv)
 	return (0);
 }
 
-#include <string.h>
-
 int	print_state(t_philo *philo, char *state)
 {
 	size_t	time;
 
-	pthread_mutex_lock(philo->printf);
+	if (pthread_mutex_lock(philo->printf) != 0)
+		return (0);
 	time = getime() - philo->start_time;
 	printf("%zu %d %s\n", time, philo->number, state);
 	pthread_mutex_unlock(philo->printf);
