@@ -6,11 +6,12 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/01 22:40:11 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/02 13:32:54 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatory/philo.h"
+#include <stdio.h>
 
 void	*_main(void *arg)
 {

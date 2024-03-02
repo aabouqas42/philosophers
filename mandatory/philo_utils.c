@@ -6,12 +6,13 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:17 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/01 19:52:23 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/02 13:26:37 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <sys/_types/_timeval.h>
+#include <unistd.h>
 
 void	_puts(char *s, int fd)
 {
@@ -70,5 +71,5 @@ void	_usleep(size_t ms)
 
 	tosleep = getime();
 	while (getime() - tosleep < ms)
-		(void)0;
+		usleep(100);
 }
