@@ -6,11 +6,11 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 22:31:35 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/03 22:56:43 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 int	monitor(t_data *data)
 {

@@ -6,29 +6,24 @@
 #    By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/26 10:22:26 by aabouqas          #+#    #+#              #
-#    Updated: 2024/03/03 22:17:52 by aabouqas         ###   ########.fr        #
+#    Updated: 2024/03/03 22:54:20 by aabouqas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc 
-CFLAGS = -Wextra -Werror -Wall 
-SRC = mandatory/philo_init.c mandatory/philo_utils.c mandatory/memory_manager.c mandatory/monitor.c
+CFLAGS = -Wextra -Werror -Wall
+SRC = philo.c philo_init.c philo_utils.c memory_manager.c monitor.c
 NAME = philo
-MAIN = philo.c
-MAIN_OBJ = philo.o
-HEADER = mandatory/philo.h
+HEADER = philo.h
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME) $(HEADER) 
 
-$(NAME): $(MAIN_OBJ) $(OBJ) $(HEADER) ./Makefile
+$(NAME): $(OBJ) $(HEADER)
 	$(CC) $(CFLAGS) $(MAIN_OBJ) $(OBJ) -o $(NAME)
 
-$(MAIN_OBJ): $(MAIN) $(HEADER)
-	$(CC) $(CFLAGS) -c $(MAIN) -o $(MAIN_OBJ)
-
-mandatory/%.o: mandatory/%.c $(HEADER)
+%.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 re: fclean all
