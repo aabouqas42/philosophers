@@ -6,15 +6,11 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 17:11:48 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:20:12 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatory/philo.h"
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 
 void	*_main(void *arg)
 {
@@ -49,11 +45,14 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (check_input(argc, argv) == -1)
-		return (-1);
-	memory_init(&data, argv);
-	data_init(&data, argc, argv);
+		return (_free(&data), -1);
+	if (memory_init(&data, argv) == -1)
+		return (_free(&data), -1);
+	if (data_init(&data, argc, argv) == -1)
+		return (_free(&data), -1);
 	forks_init(&data);
-	create_threads(&data);
+	if (create_threads(&data) == -1)
+		return (_free(&data), -1);
 	monitor(&data);
 	_free(&data);
 }
