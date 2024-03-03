@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 11:09:34 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/03 13:50:39 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	*_main(void *arg)
 		_usleep(100);
 	while (1)
 	{
+		pthread_mutex_lock(philo->dead_mutex);
+		if (*philo->someone_died)
+			return (pthread_mutex_unlock(philo->dead_mutex), NULL);
+		pthread_mutex_unlock(philo->dead_mutex);
 		pthread_mutex_lock(philo->left_fork);
 		print_state(philo, TAKING_FORK);
 		pthread_mutex_lock(philo->right_fork);
@@ -60,5 +64,4 @@ int	main(int argc, char **argv)
 	forks_init(&data);
 	create_threads(&data);
 	monitor(&data);
-	
 }

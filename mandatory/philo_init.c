@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 10:35:39 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/03 13:53:40 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,15 @@ int	data_init(t_data *data, int argc, char **argv)
 	int		i;
 
 	start_time = getime();
+	data->someone_died = 0;
 	i = 0;
 	while (i < data->n_philos)
 	{
 		data->philos[i].number = i + 1;
 		data->philos[i].start_time = start_time;
 		data->philos[i].last_meal = start_time;
+		data->philos[i].someone_died = &data->someone_died;
+		data->philos[i].dead_mutex = &data->dead_mutex;
 		data->philos[i].time_to_die = _atoi(argv[2]);
 		data->philos[i].time_to_eat = _atoi(argv[3]);
 		data->philos[i].time_to_sleep = _atoi(argv[4]);
@@ -81,8 +84,13 @@ int	print_state(t_philo *philo, char *state)
 	size_t	time;
 
 	pthread_mutex_lock(philo->printf);
-	time = getime() - philo->start_time;
-	printf("%zu %d %s\n", time, philo->number, state);
+	pthread_mutex_lock(philo->dead_mutex);
+	if (*philo->someone_died == 0)
+	{
+		time = getime() - philo->start_time;
+		printf("[%d] %zu %d %s\n", *philo->someone_died, time, philo->number, state);
+	}
+	pthread_mutex_unlock(philo->dead_mutex);
 	pthread_mutex_unlock(philo->printf);
 	return (0);
 }
