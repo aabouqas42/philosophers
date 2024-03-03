@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 17:19:29 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/03 22:07:25 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	data_init(t_data *data, int argc, char **argv)
 	int		i;
 
 	start_time = getime();
-	data->someone_died = 0;
 	i = 0;
 	while (i < data->n_philos)
 	{

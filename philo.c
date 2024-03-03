@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 17:20:12 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/03 22:09:45 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	*_main(void *arg)
 		pthread_mutex_lock(philo->right_fork);
 		print_state(philo, TAKING_FORK);
 		print_state(philo, EATING);
-		pthread_mutex_lock(philo->lock);
+		pthread_mutex_lock(&philo->lock);
 		philo->last_meal = getime();
 		philo->meal_count -= (philo->meal_count != -1);
-		pthread_mutex_unlock(philo->lock);
+		pthread_mutex_unlock(&philo->lock);
 		_usleep(philo->t_2_e);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
