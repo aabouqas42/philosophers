@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:19 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 13:16:37 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:12:43 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <pthread.h>
 # include <stdio.h>
-#include <sys/_pthread/_pthread_t.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/time.h>
@@ -38,11 +37,10 @@ typedef struct s_philo
 	int				*someone_died;
 	int				meal_count;
 	int				number;
-	int				time_to_eat;
-	int				time_to_die;
-	int				time_to_sleep;
+	int				t_2_e;
+	int				t_2_d;
+	int				t_2_s;
 }	t_philo;
-
 
 typedef struct s_data
 {

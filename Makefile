@@ -6,14 +6,14 @@
 #    By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/26 10:22:26 by aabouqas          #+#    #+#              #
-#    Updated: 2024/03/03 13:23:28 by aabouqas         ###   ########.fr        #
+#    Updated: 2024/03/03 17:12:07 by aabouqas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc 
-CFLAGS =
-SRC = mandatory/philo_init.c mandatory/philo_utils.c mandatory/memory_manager.c mandatory/monitor.c mandatory/states.c
+CFLAGS = 
+SRC = mandatory/philo_init.c mandatory/philo_utils.c mandatory/memory_manager.c mandatory/monitor.c
 NAME = philo
 MAIN = philo.c
 MAIN_OBJ = philo.o

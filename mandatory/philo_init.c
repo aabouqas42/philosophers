@@ -6,22 +6,16 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 13:53:40 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/03 17:13:31 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/_pthread/_pthread_t.h>
-#include <unistd.h>
-
 
 void	forks_init(t_data *data)
 {
 	int	i;
-	
+
 	data->philos[0].left_fork = &data->forks[data->n_philos - 1];
 	data->philos[0].right_fork = &data->forks[0];
 	i = 1;
@@ -35,8 +29,8 @@ void	forks_init(t_data *data)
 
 int	create_threads(t_data *data)
 {
-	t_philo		*philo;
-	int			i;
+	t_philo	*philo;
+	int		i;
 
 	i = 0;
 	while (i < data->n_philos)
@@ -46,11 +40,11 @@ int	create_threads(t_data *data)
 			return (_free(data), -1);
 		if (pthread_detach(data->philos[i].philo))
 			return (_free(data), -1);
+		usleep(50);
 		i++;
 	}
 	return (0);
 }
-
 
 int	data_init(t_data *data, int argc, char **argv)
 {
@@ -65,11 +59,9 @@ int	data_init(t_data *data, int argc, char **argv)
 		data->philos[i].number = i + 1;
 		data->philos[i].start_time = start_time;
 		data->philos[i].last_meal = start_time;
-		data->philos[i].someone_died = &data->someone_died;
-		data->philos[i].dead_mutex = &data->dead_mutex;
-		data->philos[i].time_to_die = _atoi(argv[2]);
-		data->philos[i].time_to_eat = _atoi(argv[3]);
-		data->philos[i].time_to_sleep = _atoi(argv[4]);
+		data->philos[i].t_2_d = _atoi(argv[2]);
+		data->philos[i].t_2_e = _atoi(argv[3]);
+		data->philos[i].t_2_s = _atoi(argv[4]);
 		if (argc == 6)
 			data->philos[i].meal_count = _atoi(argv[5]);
 		else
@@ -84,13 +76,8 @@ int	print_state(t_philo *philo, char *state)
 	size_t	time;
 
 	pthread_mutex_lock(philo->printf);
-	pthread_mutex_lock(philo->dead_mutex);
-	if (*philo->someone_died == 0)
-	{
-		time = getime() - philo->start_time;
-		printf("[%d] %zu %d %s\n", *philo->someone_died, time, philo->number, state);
-	}
-	pthread_mutex_unlock(philo->dead_mutex);
+	time = getime() - philo->start_time;
+	printf("%zu %d %s\n", time, philo->number, state);
 	pthread_mutex_unlock(philo->printf);
 	return (0);
 }
