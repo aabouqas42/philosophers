@@ -6,20 +6,20 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/02 23:07:45 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/03 11:09:07 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <stdio.h>
+#include <unistd.h>
 
-void	*monitor(void *param)
+int	monitor(t_data *data)
 {
-	t_data	*data;
 	size_t	time;
 	int		meal;
 	int		i;
 	
-	data = (t_data *)param;
 	while (1)
 	{
 		(i = 0, meal = 0);
@@ -30,9 +30,9 @@ void	*monitor(void *param)
 			pthread_mutex_unlock(&data->lock);
 			if (time >= data->philos[i].time_to_die)
 			{
-				// pthread_mutex_lock(&data->printf);
-				data->someone_died = 1;
-				printf("%zu %d is died\n", time, data->philos[i].number);
+				pthread_mutex_lock(&data->printf);
+				printf("\033[31m%zu %d is died\n", time, data->philos[i].number);
+				_usleep(10);
 				return (0);
 			}
 			i++;

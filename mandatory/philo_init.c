@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/02 23:08:58 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/03 10:35:39 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void	forks_init(t_data *data)
 int	create_threads(t_data *data)
 {
 	t_philo		*philo;
-	pthread_t	_monitor;
-	int		i;
+	int			i;
 
 	i = 0;
 	while (i < data->n_philos)
@@ -45,16 +44,10 @@ int	create_threads(t_data *data)
 		philo = &data->philos[i];
 		if (pthread_create(&philo->philo, NULL, _main, &data->philos[i]))
 			return (_free(data), -1);
+		if (pthread_detach(data->philos[i].philo))
+			return (_free(data), -1);
 		i++;
 	}
-	pthread_create(&_monitor, NULL, monitor, data);
-	i = 0;
-	while (i < data->n_philos)
-	{
-		pthread_join(data->philos[i].philo, NULL);
-		i++;
-	}
-	pthread_join(_monitor, NULL);
 	return (0);
 }
 
@@ -65,14 +58,12 @@ int	data_init(t_data *data, int argc, char **argv)
 	int		i;
 
 	start_time = getime();
-	data->someone_died = 0;
 	i = 0;
 	while (i < data->n_philos)
 	{
 		data->philos[i].number = i + 1;
 		data->philos[i].start_time = start_time;
 		data->philos[i].last_meal = start_time;
-		data->philos[i].someone_died = &data->someone_died;
 		data->philos[i].time_to_die = _atoi(argv[2]);
 		data->philos[i].time_to_eat = _atoi(argv[3]);
 		data->philos[i].time_to_sleep = _atoi(argv[4]);
@@ -89,11 +80,9 @@ int	print_state(t_philo *philo, char *state)
 {
 	size_t	time;
 
-	if (*philo->someone_died)
-		return (1);
 	pthread_mutex_lock(philo->printf);
-		time = getime() - philo->start_time;
-		printf("%zu %d %s\n", time, philo->number, state);
+	time = getime() - philo->start_time;
+	printf("%zu %d %s\n", time, philo->number, state);
 	pthread_mutex_unlock(philo->printf);
 	return (0);
 }

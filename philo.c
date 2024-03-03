@@ -6,11 +6,12 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/02 23:09:33 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/03 11:09:34 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mandatory/philo.h"
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -24,13 +25,22 @@ void	*_main(void *arg)
 		_usleep(100);
 	while (1)
 	{
-		if (*philo->someone_died)
-			return (NULL);
-		eating(philo);
+		pthread_mutex_lock(philo->left_fork);
+		print_state(philo, TAKING_FORK);
+		pthread_mutex_lock(philo->right_fork);
+		print_state(philo, TAKING_FORK);
+		print_state(philo, EATING);
+		pthread_mutex_lock(philo->lock);
+		philo->last_meal = getime();
+		philo->meal_count -= (philo->meal_count != -1);
+		pthread_mutex_unlock(philo->lock);
+		_usleep(philo->time_to_eat);
+		pthread_mutex_unlock(philo->left_fork);
+		pthread_mutex_unlock(philo->right_fork);
 		if (philo->meal_count == 0)
 			return (NULL);
 		sleeping(philo);
-		thinking(philo);
+		print_state(philo, THINKING);
 	}
 	return (NULL);
 }
@@ -49,4 +59,6 @@ int	main(int argc, char **argv)
 	data_init(&data, argc, argv);
 	forks_init(&data);
 	create_threads(&data);
+	monitor(&data);
+	
 }

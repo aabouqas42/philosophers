@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:25:47 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/01 22:09:20 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/03 10:12:46 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	thinking(t_philo *philo)
 	print_state(philo, THINKING);
 	pthread_mutex_lock(philo->left_fork);
 	print_state(philo, TAKING_FORK);
-	print_state(philo, THINKING);
 	pthread_mutex_lock(philo->right_fork);
 	print_state(philo, TAKING_FORK);
 }
