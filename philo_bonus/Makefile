@@ -6,13 +6,13 @@
 #    By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/26 10:22:26 by aabouqas          #+#    #+#              #
-#    Updated: 2024/03/03 22:57:27 by aabouqas         ###   ########.fr        #
+#    Updated: 2024/03/04 18:44:02 by aabouqas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc 
-CFLAGS = -Wextra -Werror -Wall
+CFLAGS = 
 SRC = philo_bonus.c philo_init.c philo_utils.c memory_manager.c monitor.c
 NAME = philo_bonus
 HEADER = philo_bonus.h
