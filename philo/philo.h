@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:19 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 22:15:14 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:40:07 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,5 @@ void	*_main(void *arg);
 int		print_state(t_philo *philo, char *state);
 void	_usleep(size_t ms);
 int		monitor(t_data *param);
-void	thinking(t_philo *philo);
-void	eating(t_philo *philo);
-void	sleeping(t_philo *philo);
 
 #endif

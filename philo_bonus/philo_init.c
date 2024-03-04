@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 22:56:51 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/04 16:09:48 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	forks_init(t_data *data)
 	}
 }
 
-int	create_threads(t_data *data)
+int	create_proccess(t_data *data)
 {
 	t_philo		*philo;
 	int			i;

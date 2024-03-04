@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:56:20 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 22:56:25 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/04 16:09:57 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,11 @@ void	_free(t_data *data);
 size_t	getime(void);
 int		data_init(t_data *data, int argc, char **argv);
 int		memory_init(t_data *data, char **argv);
-int		create_threads(t_data *data);
+int		create_proccess(t_data *data);
 void	forks_init(t_data *data);
 void	*_main(void *arg);
 int		print_state(t_philo *philo, char *state);
 void	_usleep(size_t ms);
 int		monitor(t_data *param);
-void	thinking(t_philo *philo);
-void	eating(t_philo *philo);
-void	sleeping(t_philo *philo);
 
 #endif

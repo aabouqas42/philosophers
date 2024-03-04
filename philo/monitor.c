@@ -6,12 +6,11 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 22:33:18 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/04 12:38:17 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
 int	monitor(t_data *data)
 {
@@ -34,7 +33,6 @@ int	monitor(t_data *data)
 			{
 				pthread_mutex_lock(&data->printf);
 				printf("%d %d is died\n", time, data->philos[i].number);
-				pthread_mutex_unlock(&data->philos[i].lock);
 				return (_usleep(100), 0);
 			}
 			pthread_mutex_unlock(&data->philos[i].lock);
