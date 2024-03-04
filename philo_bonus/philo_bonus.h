@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:56:20 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/04 19:44:38 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/04 22:13:54 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 
 typedef struct s_philo
 {
+	sem_t	*sem_printf;
+	sem_t	*sem_forks;
 	size_t	start_time;
 	size_t	last_meal;
 	int		meal_count;
@@ -39,7 +41,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	sem_t		*sem_printf;
-	sem_t		*forks;
+	sem_t		*sem_forks;
 	t_philo		*philos;
 	int			n_philos;
 }	t_data;
