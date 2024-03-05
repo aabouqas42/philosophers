@@ -6,12 +6,13 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/05 14:30:47 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:22:53 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 #include <stdio.h>
+#include <unistd.h>
 
 int	create_proccess(t_data *data)
 {

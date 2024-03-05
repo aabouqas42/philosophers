@@ -6,16 +6,11 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/05 14:35:38 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:22:06 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/semaphore.h>
-#include <unistd.h>
 
 int	kill_all(t_data data)
 {
@@ -42,7 +37,9 @@ void	*monitor(void *data)
 	while (1)
 	{
 		time = getime() - philo->last_meal;
-		if (time >= philo->t_2_d)
+		if (philo->meal_count == 0)
+			return (0);
+		if (time >= philo->t_2_d && philo->meal_count != 0)
 		{
 			sem_wait(philo->sem_printf);
 			printf("%d %d is died\n", time, philo->number);
