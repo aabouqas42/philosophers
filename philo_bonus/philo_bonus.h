@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:56:20 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/05 11:20:38 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/05 13:59:18 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 # define PHILO_H
 
 # include <semaphore.h>
+# include <pthread.h>
 # include <stdio.h>
+#include <sys/_types/_pid_t.h>
 #include <sys/semaphore.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <signal.h>
 # include <sys/time.h>
 
 # define THINKING "is thinking"
@@ -38,6 +41,7 @@ typedef struct s_data
 	int		t_2_s;
 	int		philo_pid;
 	int		n_philos;
+	pid_t	ppid;
 }	t_data;
 
 int		_atoi(char *s);
@@ -49,9 +53,9 @@ int		data_init(t_data *data, int argc, char **argv);
 int		memory_init(t_data *data, char **argv);
 int		create_proccess(t_data *data);
 void	forks_init(t_data *data);
-void	*_main(void *arg);
+void	_main(t_data *data);
 int		print_state(t_data *philo, char *state);
 void	_usleep(size_t ms);
-int		monitor(t_data *param);
+void	*monitor(void *arg);
 
 #endif
