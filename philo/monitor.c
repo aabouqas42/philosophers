@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/04 12:38:17 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/05 23:57:56 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	monitor(t_data *data)
 		{
 			pthread_mutex_lock(&data->philos[i].lock);
 			time = getime() - data->philos[i].last_meal;
+			pthread_mutex_unlock(&data->philos[i].lock);
 			meal += (data->philos[i].meal_count == 0);
 			if (meal == data->n_philos)
 				return (0);
@@ -35,7 +36,6 @@ int	monitor(t_data *data)
 				printf("%d %d is died\n", time, data->philos[i].number);
 				return (_usleep(100), 0);
 			}
-			pthread_mutex_unlock(&data->philos[i].lock);
 		}
 	}
 	return (0);
