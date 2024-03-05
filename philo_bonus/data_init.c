@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/04 22:26:52 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/05 11:55:08 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,25 @@ void	forks_init(t_data *data)
 int	data_init(t_data *data, int argc, char **argv)
 {
 	size_t	start_time;
-	sem_t	sem;
 	int		i;
 
 	start_time = getime();
-	data->sem_printf = sem_open("/sem_printf", O_CREAT, O_EXCL, 0666, 1);
-	data->sem_forks = sem_open("/sem_forks", O_CREAT, O_EXCL, 0666, data->n_philos);
+	data->n_philos = _atoi(argv[1]);
+	data->sem_printf = sem_open("/semPrintf", O_CREAT | O_RDWR, 0666, 1);
+	data->sem_forks = sem_open("/sem_forks", O_CREAT, 0666, data->n_philos);
 	i = 0;
 	while (i < data->n_philos)
 	{
-		data->philos[i].number = i + 1;
-		data->philos[i].start_time = start_time;
-		data->philos[i].last_meal = start_time;
+		data->meal_count = -1;
+		data->start_time = start_time;
+		data->last_meal = start_time;
 		data->sem_printf = data->sem_printf;
 		data->sem_forks = data->sem_forks;
-		data->philos[i].t_2_d = _atoi(argv[2]);
-		data->philos[i].t_2_e = _atoi(argv[3]);
-		data->philos[i].t_2_s = _atoi(argv[4]);
+		data->t_2_d = _atoi(argv[2]);
+		data->t_2_e = _atoi(argv[3]);
+		data->t_2_s = _atoi(argv[4]);
 		if (argc == 6)
-			data->philos[i].meal_count = _atoi(argv[5]);
-		else
-			data->philos[i].meal_count = -1;
+			data->meal_count = _atoi(argv[5]);
 		i++;
 	}
 	return (0);
@@ -66,10 +64,17 @@ int	data_init(t_data *data, int argc, char **argv)
 // 		kill();
 // }
 
-int	print_state(t_philo *philo, char *state)
+int	print_state(t_data *philo, char *state)
 {
 	size_t	time;
 
+	sem_wait(philo->sem_printf);
+	sem_wait(philo->sem_printf);
+	sem_wait(philo->sem_printf);
+	sem_wait(philo->sem_printf);
+	sem_wait(philo->sem_printf);
+	sem_wait(philo->sem_printf);
+	sem_wait(philo->sem_printf);
 	sem_wait(philo->sem_printf);
 	time = getime() - philo->start_time;
 	printf("%zu %d %s\n", time, philo->number, state);

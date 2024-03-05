@@ -6,18 +6,22 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/04 22:28:01 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/05 11:50:17 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
+#include <stdio.h>
+#include <sys/_types/_size_t.h>
 #include <sys/semaphore.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 void	*_main(void *arg)
 {
-	t_philo	*philo;
+	t_data	*philo;
 
-	philo = (t_philo *)arg;
+	philo = (t_data *)arg;
 	while (1)
 	{
 		sem_wait(philo->sem_forks);
@@ -43,20 +47,30 @@ int	main(int argc, char **argv)
 
 	if (check_input(argc, argv) == -1)
 		return (_free(&data), -1);
-	if (memory_init(&data, argv) == -1)
-		return (_free(&data), -1);
 	if (data_init(&data, argc, argv) == -1)
 		return (_free(&data), -1);
 	i = 0;
-	while (i < data.n_philos)
-	{
-		philo_pid = fork();
-		if (philo_pid == 0)
-		{
-			_main(&data.philos[i]);
-			exit(0);
-		}
-		i++;
-	}
+	// sem_wait(data.sem_printf);
+	printf("%d\n",  data.sem_printf);
+	unlink("/sem_printf");
+	sem_close(data.sem_printf);
+	// sem_wait(data.sem_printf);
+	// printf("%d\n", n);
+	// printf("%d\n", sem_wait(data.sem_printf));
+	// printf("%d\n", sem_wait(data.sem_printf));
+	// while (i < data.n_philos)
+	// {
+	// 	data.number = i + 1;
+	// 	philo_pid = fork();
+	// 	if (philo_pid == 0)
+	// 	{
+	// 		// printf("[%d]\n", i);
+	// 		_main(&data);
+	// 		exit(0);
+	// 	}
+	// 	data.philo_pid = philo_pid - (data.n_philos + 1);
+	// 	i++;
+	// }
+	// while(waitpid(-1, NULL, 0));
 	_free(&data);
 }

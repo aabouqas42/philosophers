@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:56:20 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/04 22:13:54 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/05 11:20:38 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define TAKING_FORK "has taking a fork"
 # define SLEAPING "is sleeping"
 
-typedef struct s_philo
+typedef struct s_data
 {
 	sem_t	*sem_printf;
 	sem_t	*sem_forks;
@@ -36,14 +36,8 @@ typedef struct s_philo
 	int		t_2_e;
 	int		t_2_d;
 	int		t_2_s;
-}	t_philo;
-
-typedef struct s_data
-{
-	sem_t		*sem_printf;
-	sem_t		*sem_forks;
-	t_philo		*philos;
-	int			n_philos;
+	int		philo_pid;
+	int		n_philos;
 }	t_data;
 
 int		_atoi(char *s);
@@ -56,7 +50,7 @@ int		memory_init(t_data *data, char **argv);
 int		create_proccess(t_data *data);
 void	forks_init(t_data *data);
 void	*_main(void *arg);
-int		print_state(t_philo *philo, char *state);
+int		print_state(t_data *philo, char *state);
 void	_usleep(size_t ms);
 int		monitor(t_data *param);
 
