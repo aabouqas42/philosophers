@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 11:27:59 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/06 11:35:01 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/06 20:01:49 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	sleeping(t_philo *philo)
 {
 	print_state(philo, SLEAPING);
-	_usleep(philo->t_2_s);
+	_usleep(philo->sleep_time);
 	return (0);
 }
 
@@ -31,15 +31,13 @@ int	taking_a_fork(t_philo *philo)
 int	eating(t_philo *philo)
 {
 	print_state(philo, EATING);
-	pthread_mutex_lock(&philo->meal_lock);
+	pthread_mutex_lock(&philo->lock);
 	philo->last_meal = getime();
-	pthread_mutex_unlock(&philo->meal_lock);
-	_usleep(philo->t_2_e);
+	philo->meal_count -= (philo->meal_count != -1);
+	pthread_mutex_unlock(&philo->lock);
+	_usleep(philo->eat_time);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_lock(&philo->meal_count_lock);
-	philo->meal_count -= (philo->meal_count != -1);
-	pthread_mutex_unlock(&philo->meal_count_lock);
 	return (0);
 }
 

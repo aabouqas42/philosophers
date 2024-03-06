@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:17 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 22:15:34 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/06 19:36:30 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,5 @@ void	_usleep(size_t ms)
 	size_t	tosleep;
 
 	tosleep = getime();
-	while (getime() - tosleep < ms)
-		usleep(500);
+	while (getime() - tosleep < ms);
 }
