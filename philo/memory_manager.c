@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:25 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 22:29:20 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/06 11:41:25 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	_free(t_data *data)
 	while (i < data->n_philos)
 	{
 		pthread_mutex_destroy(&data->forks[i]);
-		pthread_mutex_destroy(&data->philos[i].lock);
+		pthread_mutex_destroy(&data->philos[i].meal_lock);
+		pthread_mutex_destroy(&data->philos[i].meal_count_lock);
 		i++;
 	}
 	pthread_mutex_destroy(&data->printf);
@@ -28,10 +29,29 @@ void	_free(t_data *data)
 	free (data->philos);
 }
 
+int	mutex_init(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (pthread_mutex_init(&data->printf, NULL))
+		return (_free(data), _puts("Unexpected Error\n", 2), -1);
+	while (i < data->n_philos)
+	{
+		if (pthread_mutex_init(&data->forks[i], NULL))
+			return (_free(data), _puts("Unexpected Error\n", 2), -1);
+		if (pthread_mutex_init(&data->philos[i].meal_lock, NULL))
+			return (_free(data), _puts("Unexpected Error\n", 2), -1);
+		if (pthread_mutex_init(&data->philos[i].meal_count_lock, NULL))
+			return (_free(data), _puts("Unexpected Error\n", 2), -1);
+		data->philos[i].printf = &data->printf;
+		i++;
+	}
+	return (0);
+}
+
 int	memory_init(t_data *data, char **argv)
 {
-	int		i;
-
 	data->n_philos = _atoi(argv[1]);
 	data->philos = NULL;
 	data->forks = NULL;
@@ -41,17 +61,5 @@ int	memory_init(t_data *data, char **argv)
 	data->forks = malloc (sizeof(pthread_mutex_t) * data->n_philos);
 	if (data->forks == NULL)
 		return (_free(data), _puts("Unexpected Error\n", 2), -1);
-	if (pthread_mutex_init(&data->printf, NULL))
-		return (_free(data), _puts("Unexpected Error\n", 2), -1);
-	i = 0;
-	while (i < data->n_philos)
-	{
-		if (pthread_mutex_init(&data->forks[i], NULL))
-			return (_free(data), _puts("Unexpected Error\n", 2), -1);
-		if (pthread_mutex_init(&data->philos[i].lock, NULL))
-			return (_free(data), _puts("Unexpected Error\n", 2), -1);
-		data->philos[i].printf = &data->printf;
-		i++;
-	}
 	return (0);
 }

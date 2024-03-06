@@ -6,11 +6,12 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 22:50:59 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/06 12:40:16 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <unistd.h>
 
 void	*_main(void *arg)
 {
@@ -19,23 +20,12 @@ void	*_main(void *arg)
 	philo = (t_philo *)arg;
 	while (1)
 	{
-		pthread_mutex_lock(philo->left_fork);
-		print_state(philo, TAKING_FORK);
-		pthread_mutex_lock(philo->right_fork);
-		print_state(philo, TAKING_FORK);
-		print_state(philo, EATING);
-		pthread_mutex_lock(&philo->lock);
-		philo->last_meal = getime();
-		philo->meal_count -= (philo->meal_count != -1);
-		pthread_mutex_unlock(&philo->lock);
-		_usleep(philo->t_2_e);
-		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
+		taking_a_fork(philo);
+		eating(philo);
 		if (philo->meal_count == 0)
 			return (NULL);
-		print_state(philo, SLEAPING);
-		_usleep(philo->t_2_s);
-		print_state(philo, THINKING);
+		sleeping(philo);
+		thinking(philo);
 	}
 	return (NULL);
 }
@@ -48,6 +38,8 @@ int	main(int argc, char **argv)
 		return (_free(&data), -1);
 	if (memory_init(&data, argv) == -1)
 		return (_free(&data), -1);
+	if (mutex_init(&data) == -1)
+		return (_free(&data), -1);
 	if (data_init(&data, argc, argv) == -1)
 		return (_free(&data), -1);
 	forks_init(&data);
@@ -56,3 +48,4 @@ int	main(int argc, char **argv)
 	monitor(&data);
 	_free(&data);
 }
+

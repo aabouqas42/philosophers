@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:19 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/04 12:40:07 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/06 11:40:00 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*printf;
-	pthread_mutex_t	lock;
+	pthread_mutex_t	meal_lock;
+	pthread_mutex_t	meal_count_lock;
 	pthread_t		philo;
 	size_t			start_time;
 	size_t			last_meal;
@@ -61,5 +62,10 @@ void	*_main(void *arg);
 int		print_state(t_philo *philo, char *state);
 void	_usleep(size_t ms);
 int		monitor(t_data *param);
+int		mutex_init(t_data *data);
+int		taking_a_fork(t_philo *philo);
+int		eating(t_philo *philo);
+int		sleeping(t_philo *philo);
+int		thinking(t_philo *philo);
 
 #endif

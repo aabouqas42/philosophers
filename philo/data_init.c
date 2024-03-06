@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/05 23:50:35 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/06 13:21:52 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int	print_state(t_philo *philo, char *state)
 {
 	size_t	time;
 
-	pthread_mutex_lock(philo->printf);
+	if (pthread_mutex_lock(philo->printf) != 0)
+		return (1);
 	time = getime() - philo->start_time;
 	printf("%zu %d %s\n", time, philo->number, state);
 	pthread_mutex_unlock(philo->printf);
