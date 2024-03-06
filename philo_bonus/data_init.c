@@ -6,35 +6,70 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/05 17:22:53 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/06 14:01:37 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 #include <stdio.h>
+#include <sys/fcntl.h>
+#include <sys/semaphore.h>
 #include <unistd.h>
 
 int	create_proccess(t_data *data)
 {
-	int			i;
-	int			philo_pid;
+	char	*sem_name;
+	int		i;
+	int		philo_pid;
 
 	i = 0;
 	while (i < data->n_philos)
 	{
-		data->number = i + 1;
+		data->philos[i].number = i + 1;
 		philo_pid = fork();
 		if (philo_pid == 0)
 		{
-			_main(data);
+			data->philos[i].philo_pid = getpid() - (data->n_philos + 1);
+			sem_name = _itoa(i + 1);
+			if (sem_name == NULL)
+				return (-1);
+			data->philos[i].sem_lock = sem_open(sem_name, O_CREAT, 0666, 1);
+			_main(&data->philos[i]);
 			exit(0);
 		}
 		if (philo_pid == -1)
 			return (_puts("Unexpected Error\n", 2), -1);
-		data->philo_pid = philo_pid - (data->n_philos + 1);
 		i++;
 	}
 	return (0);
+}
+
+char	*_itoa(int number)
+{
+	char	*str;
+	int		len;
+	int		n;
+
+	len = 0;
+	if (number <= 0)
+		return (NULL);
+	n = number;
+	while (n)
+		(n /= 10, len++);
+	str = malloc (len + 1);
+	if (str == NULL)
+		return (NULL);
+	if (str == NULL)
+		return (NULL);
+	n = 0;
+	str[len--] = '\0';
+	while (number)
+	{
+		str[len] = "0123456789"[number % 10];
+		number /= 10;
+		len--;
+	}
+	return (str);
 }
 
 int	data_init(t_data *data, int argc, char **argv)
@@ -42,22 +77,24 @@ int	data_init(t_data *data, int argc, char **argv)
 	size_t	start_time;
 	int		i;
 
-	data->n_philos = _atoi(argv[1]);
-	data->t_2_d = _atoi(argv[2]);
-	data->t_2_e = _atoi(argv[3]);
-	data->t_2_s = _atoi(argv[4]);
+	i = 0;
 	start_time = getime();
-	sem_unlink("sem_printf");
-	sem_unlink("sem_forks");
-	data->sem_printf = sem_open("sem_printf", O_CREAT, 0666, 1);
-	data->sem_forks = sem_open("sem_forks", O_CREAT, 0666, data->n_philos);
-	data->meal_count = -1;
-	data->start_time = start_time;
-	data->last_meal = start_time;
-	data->sem_printf = data->sem_printf;
-	data->sem_forks = data->sem_forks;
-	if (argc == 6)
-		data->meal_count = _atoi(argv[5]);
+	data->n_philos = _atoi(argv[1]);
+	while (i < data->n_philos)
+	{
+		data->philos[i].t_2_d = _atoi(argv[2]);
+		data->philos[i].t_2_e = _atoi(argv[3]);
+		data->philos[i].t_2_s = _atoi(argv[4]);
+		data->philos[i].meal_count = -1;
+		data->philos[i].start_time = start_time;
+		data->philos[i].last_meal = start_time;
+		data->philos[i].sem_printf = data->sem_printf;
+		data->philos[i].sem_forks = data->sem_forks;
+		data->philos[i].n_philos = data->n_philos;
+		if (argc == 6)
+			data->philos[i].meal_count = _atoi(argv[5]);
+		i++;
+	}
 	return (0);
 }
 
@@ -68,7 +105,7 @@ int	data_init(t_data *data, int argc, char **argv)
 // 		kill();
 // }
 
-int	print_state(t_data *philo, char *state)
+int	print_state(t_philo *philo, char *state)
 {
 	size_t	time;
 

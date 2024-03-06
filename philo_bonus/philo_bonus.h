@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:56:20 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/05 13:59:18 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/05 23:37:05 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,30 @@
 # define TAKING_FORK "has taking a fork"
 # define SLEAPING "is sleeping"
 
-typedef struct s_data
+typedef struct s_philo 
 {
 	sem_t	*sem_printf;
 	sem_t	*sem_forks;
+	sem_t	*sem_lock;
 	size_t	start_time;
 	size_t	last_meal;
-	int		meal_count;
+	pid_t	parent_pid;
+	pid_t	philo_pid;
 	int		number;
+	int		meal_count;
 	int		t_2_e;
 	int		t_2_d;
 	int		t_2_s;
-	int		philo_pid;
 	int		n_philos;
-	pid_t	ppid;
+} t_philo;
+
+typedef struct s_data
+{
+	t_philo	*philos;
+	sem_t	*sem_printf;
+	sem_t	*sem_forks;
+	int		n_philos;
+	pid_t	parent_pid;
 }	t_data;
 
 int		_atoi(char *s);
@@ -53,9 +63,11 @@ int		data_init(t_data *data, int argc, char **argv);
 int		memory_init(t_data *data, char **argv);
 int		create_proccess(t_data *data);
 void	forks_init(t_data *data);
-void	_main(t_data *data);
-int		print_state(t_data *philo, char *state);
+void	_main(t_philo *data);
+int		print_state(t_philo *philo, char *state);
 void	_usleep(size_t ms);
 void	*monitor(void *arg);
+char	*_itoa(int number);
+int		memory_init(t_data *data, char **argv);
 
 #endif
