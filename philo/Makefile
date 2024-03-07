@@ -6,13 +6,13 @@
 #    By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/26 10:22:26 by aabouqas          #+#    #+#              #
-#    Updated: 2024/03/07 10:35:35 by aabouqas         ###   ########.fr        #
+#    Updated: 2024/03/07 17:54:01 by aabouqas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 CC = cc 
-CFLAGS = -Wextra -Werror -Wall 
+CFLAGS = -Wextra -Werror -Wall -g
 SRC = philo.c data_init.c philo_utils.c memory_manager.c monitor.c actions.c
 NAME = philo
 HEADER = philo.h

@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/07 12:55:41 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/07 18:13:46 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	someone_death(t_philo *philo, int *died)
 		pthread_mutex_lock(philo->printf);
 		*died = 1;
 		pthread_mutex_unlock(philo->printf);
+		pthread_mutex_unlock(philo->left_fork);
 		printf("%zu %d died\n", time, philo->id);
 		return (1);
 	}
