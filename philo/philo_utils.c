@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:17 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/07 11:02:58 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 00:47:18 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,15 @@ size_t	getime(void)
 	return (_timeval.tv_sec * 1000 + _timeval.tv_usec / 1000);
 }
 
-void	_usleep(size_t ms)
+void	_usleep(size_t ms, t_philo *philo)
 {
 	size_t	tosleep;
 
 	tosleep = getime();
 	while (getime() - tosleep < ms)
+	{
+		if (*philo->died)
+			return ;
 		usleep(50);
+	}
 }

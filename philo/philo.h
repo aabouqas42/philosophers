@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:19 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/07 11:13:59 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 00:45:39 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int		create_threads(t_data *data);
 void	forks_init(t_data *data);
 void	*_main(void *arg);
 int		print_state(t_philo *philo, char *state);
-void	_usleep(size_t ms);
+void	_usleep(size_t ms, t_philo *philo);
 int		monitor(t_data *param);
 int		mutex_init(t_data *data);
 int		taking_a_fork(t_philo *philo);
