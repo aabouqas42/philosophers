@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:19 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/06 19:56:44 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:13:59 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 # define THINKING "is thinking"
 # define EATING "is eating"
-# define TAKING_FORK "has taking a fork"
+# define TAKING_FORK "has taken a fork"
 # define SLEAPING "is sleeping"
 
 typedef struct s_philo
@@ -38,6 +38,7 @@ typedef struct s_philo
 	int				eat_time;
 	int				die_time;
 	int				sleep_time;
+	int				*died;
 }	t_philo;
 
 typedef struct s_data
@@ -46,6 +47,7 @@ typedef struct s_data
 	t_philo			*philos;
 	pthread_mutex_t	printf;
 	int				numof_philos;
+	int				died;
 }	t_data;
 
 int		_atoi(char *s);

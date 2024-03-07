@@ -6,13 +6,13 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/06 20:24:03 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:26:50 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	someone_death(t_philo *philo)
+int	someone_death(t_philo *philo, int *died)
 {
 	size_t	time;
 
@@ -20,7 +20,9 @@ int	someone_death(t_philo *philo)
 	if (time >= (size_t) philo->die_time && philo->meal_count)
 	{
 		pthread_mutex_lock(philo->printf);
-		printf("%zu %d is died\n", time, philo->id);
+		*died = 1;
+		pthread_mutex_unlock(philo->printf);
+		printf("%zu %d died\n", time, philo->id);
 		return (1);
 	}
 	return (0);
@@ -43,8 +45,8 @@ int	monitor(t_data *data)
 			meal += (philo->meal_count == 0);
 			if (meal == data->numof_philos)
 				return (0);
-			if (someone_death(philo))
-				return (0);
+			if (someone_death(philo, &data->died))
+				return (pthread_mutex_unlock(&philo->lock), 0);
 			pthread_mutex_unlock(&philo->lock);
 		}
 	}

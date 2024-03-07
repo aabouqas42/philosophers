@@ -6,11 +6,12 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/06 20:01:58 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:22:39 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <pthread.h>
 
 void	*_main(void *arg)
 {
@@ -18,9 +19,13 @@ void	*_main(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2)
-		usleep(100);
+		usleep(1000);
 	while (1)
 	{
+		pthread_mutex_lock(philo->printf);
+		if (*philo->died)
+			return (pthread_mutex_unlock(philo->printf), NULL);
+		pthread_mutex_unlock(philo->printf);
 		taking_a_fork(philo);
 		eating(philo);
 		if (philo->meal_count == 0)
@@ -49,4 +54,3 @@ int	main(int argc, char **argv)
 	monitor(&data);
 	_free(&data);
 }
-

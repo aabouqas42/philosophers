@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/06 20:26:44 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:17:34 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	data_init(t_data *data, int argc, char **argv)
 
 	start_time = getime();
 	i = 0;
+	data->died = 0;
 	while (i < data->numof_philos)
 	{
 		data->philos[i].die_time = _atoi(argv[2]);
@@ -61,6 +62,7 @@ int	data_init(t_data *data, int argc, char **argv)
 		data->philos[i].id = i + 1;
 		data->philos[i].start = start_time;
 		data->philos[i].last_meal = start_time;
+		data->philos[i].died = &data->died;
 		data->philos[i].meal_count = -1;
 		if (argc == 6)
 			data->philos[i].meal_count = _atoi(argv[5]);
@@ -71,9 +73,9 @@ int	data_init(t_data *data, int argc, char **argv)
 
 int	print_state(t_philo *philo, char *state)
 {
-	if (pthread_mutex_lock(philo->printf) != 0)
-		return (1);
-	printf("%zu %d %s\n", getime() - philo->start, philo->id, state);
+	pthread_mutex_lock(philo->printf);
+	if (*philo->died == 0)
+		printf("%zu %d %s\n", getime() - philo->start, philo->id, state);
 	pthread_mutex_unlock(philo->printf);
 	return (0);
 }
