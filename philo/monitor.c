@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/07 11:26:50 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/07 11:43:40 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	someone_death(t_philo *philo, int *died)
 {
 	size_t	time;
-
+	
 	time = getime() - philo->last_meal;
 	if (time >= (size_t) philo->die_time && philo->meal_count)
 	{
