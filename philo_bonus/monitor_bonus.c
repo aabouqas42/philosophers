@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitor.c                                          :+:      :+:    :+:   */
+/*   monitor_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/05 23:47:09 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/07 20:17:14 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
-#include <stdio.h>
-#include <sys/semaphore.h>
 
-int	kill_all(t_philo *philo)
+int	someone_death(t_philo *philo)
 {
-	int	i;
+	long	time;
 
-	i = philo->philo_pid;
-	while (i <= i + philo->n_philos)
+	time = getime() - philo->last_meal;
+	if (time >= philo->die_time && philo->meal_count != 0)
 	{
-		if (i != getpid())
-			kill (i, SIGINT);
-		i++;
+		sem_wait(philo->sem_printf);
+		printf("%zu %d died\n", time, philo->id);
+		return (1);
 	}
 	return (0);
 }
@@ -31,25 +29,15 @@ int	kill_all(t_philo *philo)
 void	*monitor(void *arg)
 {
 	t_philo	*philo;
-	int	time;
-	int	meal;
-	int	i;
+	int		time;
+	int		i;
 
 	philo = (t_philo *)arg;
 	while (1)
 	{
 		sem_wait(philo->sem_lock);
-		time = getime() - philo[i].last_meal;
-		if (philo->meal_count == 0)
-			return (0);
-		if (time >= philo->t_2_d && philo->meal_count != 0)
-		{
-			sem_wait(philo->sem_printf);
-			time = getime() - philo[i].start_time;
-			printf("%d %d is died\n", time, philo->number);
-			kill_all(philo);
-			exit(0);
-		}
+		if (someone_death(philo))
+			exit(3);
 		sem_post(philo->sem_lock);
 	}
 	return (0);
