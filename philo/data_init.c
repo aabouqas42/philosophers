@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/07 11:17:34 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:58:01 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ int	create_threads(t_data *data)
 	while (i < data->numof_philos)
 	{
 		philo = &data->philos[i];
-		if (pthread_create(&philo->philo, NULL, _main, &data->philos[i]))
-			return (_free(data), -1);
-		if (pthread_detach(data->philos[i].philo))
+		if (pthread_create(&philo->philo, NULL, _main, &data->philos[i]) != 0)
 			return (_free(data), -1);
 		i++;
 	}
@@ -68,6 +66,7 @@ int	data_init(t_data *data, int argc, char **argv)
 			data->philos[i].meal_count = _atoi(argv[5]);
 		i++;
 	}
+	forks_init(data);
 	return (0);
 }
 

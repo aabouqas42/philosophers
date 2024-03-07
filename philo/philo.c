@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/07 11:22:39 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/07 13:23:59 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*_main(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2)
-		usleep(1000);
+		usleep(15000);
 	while (1)
 	{
 		pthread_mutex_lock(philo->printf);
@@ -36,21 +36,30 @@ void	*_main(void *arg)
 	return (NULL);
 }
 
+void	leak()
+{
+	system("leaks philo");
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
 	if (check_input(argc, argv) == -1)
-		return (_free(&data), -1);
+		return (-1);
 	if (memory_init(&data, argv) == -1)
-		return (_free(&data), -1);
+		return (-1);
 	if (mutex_init(&data) == -1)
 		return (_free(&data), -1);
-	if (data_init(&data, argc, argv) == -1)
-		return (_free(&data), -1);
-	forks_init(&data);
+	data_init(&data, argc, argv);
 	if (create_threads(&data) == -1)
-		return (_free(&data), -1);
+		return (-1);
+	int i = 0;
 	monitor(&data);
+	while (i < data.numof_philos)
+	{
+		pthread_join(data.philos[i].philo, NULL);
+		i++;
+	}
 	_free(&data);
 }
