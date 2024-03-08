@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/07 20:05:28 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:57:57 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	data_init(t_data *data, int argc, char **argv, int id)
 {
-	size_t	start_time;
 	int		i;
 	int		meal_count;
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   memory_manager.c                                   :+:      :+:    :+:   */
+/*   memory_manager_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:25 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/07 19:25:50 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:58:21 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	_free(t_data *data)
 {
-	// free (data->philosophers);
+	free (data->philosophers);
 }
 
 int	memory_init(t_data *data, char **argv)
