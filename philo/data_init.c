@@ -6,12 +6,11 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 10:58:40 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:52:55 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <stdio.h>
 
 void	forks_init(t_data *data)
 {
@@ -39,7 +38,8 @@ int	create_threads(t_data *data)
 		philo = &data->philos[i];
 		if (pthread_create(&philo->philo, NULL, _main, &data->philos[i]) != 0)
 			return (_free(data), -1);
-		usleep(50);
+		if (i % 2 == 0)
+			usleep(100);
 		i++;
 	}
 	return (0);

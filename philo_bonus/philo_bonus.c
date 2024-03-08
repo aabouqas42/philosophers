@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/07 21:42:52 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:58:15 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	_main(t_philo *philo)
 {
 	pthread_t	thread;
+
 	pthread_create(&thread, NULL, monitor, philo);
 	pthread_detach(thread);
 	while (1)
@@ -26,12 +27,12 @@ void	_main(t_philo *philo)
 	}
 }
 
-void	kill_all(int *philos, int size)
+void	kill_all(int *philos, int number_of_philos)
 {
 	int	i;
 
 	i = 0;
-	while (i < size)
+	while (i < number_of_philos)
 	{
 		kill (philos[i], SIGINT);
 		i++;
@@ -55,7 +56,7 @@ int	main(int argc, char **argv)
 		ret = WEXITSTATUS(ret);
 		if (ret == 3)
 		{
-			kill_all(data.ids, data.n_philos);
+			kill_all(data.ids, data.numof_philos);
 			exit(0);
 		}
 	}

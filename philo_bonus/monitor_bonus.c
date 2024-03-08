@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/07 20:17:14 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:58:01 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	someone_death(t_philo *philo)
 {
-	long	time;
+	int	time;
 
 	time = getime() - philo->last_meal;
 	if (time >= philo->die_time && philo->meal_count != 0)
 	{
 		sem_wait(philo->sem_printf);
-		printf("%zu %d died\n", time, philo->id);
+		printf("%d %d died\n", time, philo->id);
 		return (1);
 	}
 	return (0);
@@ -29,8 +29,6 @@ int	someone_death(t_philo *philo)
 void	*monitor(void *arg)
 {
 	t_philo	*philo;
-	int		time;
-	int		i;
 
 	philo = (t_philo *)arg;
 	while (1)

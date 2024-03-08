@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 11:57:57 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:57:43 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	data_init(t_data *data, int argc, char **argv, int id)
 	meal_count = -1;
 	if (argc == 6)
 		meal_count = _atoi(argv[5]);
-	data->n_philos = _atoi(argv[1]);
+	data->numof_philos = _atoi(argv[1]);
 	data->philo.die_time = _atoi(argv[2]);
 	data->philo.eat_time = _atoi(argv[3]);
 	data->philo.sleep_time = _atoi(argv[4]);
@@ -29,20 +29,24 @@ int	data_init(t_data *data, int argc, char **argv, int id)
 	data->philo.last_meal = data->start_time;
 	data->philo.sem_printf = data->sem_printf;
 	data->philo.sem_forks = data->sem_forks;
+	data->philo.sem_lock = data->sem_lock;
 	data->philo.meal_count = meal_count;
 	data->philo.id = id;
 	return (0);
 }
 
-int	create_proccess(t_data *data, int argc, char** argv)
+int	create_proccess(t_data *data, int argc, char **argv)
 {
+	char	*sem_name;
 	int		i;
 	int		philo_pid;
 
 	i = 0;
 	data->start_time = getime();
-	while (i < data->n_philos)
+	while (i < data->numof_philos)
 	{
+		sem_name = _itoa(i + 3);
+		data->sem_lock = sem_open(sem_name, O_CREAT, 0666, 1);
 		philo_pid = fork();
 		if (philo_pid == 0)
 		{
@@ -69,19 +73,20 @@ char	*_itoa(int number)
 		return (NULL);
 	n = number;
 	while (n)
-		(n /= 10, len++);
+	{
+		n /= 10;
+		len++;
+	}
 	str = malloc (len + 1);
 	if (str == NULL)
 		return (NULL);
 	if (str == NULL)
 		return (NULL);
-	n = 0;
 	str[len--] = '\0';
 	while (number)
 	{
-		str[len] = "0123456789"[number % 10];
+		str[len--] = "0123456789"[number % 10];
 		number /= 10;
-		len--;
 	}
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 11:27:59 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/07 20:16:37 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 18:52:20 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,17 @@ int	eating(t_philo *philo)
 {
 	print_state(philo, EATING);
 	_usleep(philo->eat_time);
+	sem_post(philo->sem_forks);
+	sem_post(philo->sem_forks);
 	sem_wait(philo->sem_lock);
 	philo->last_meal = getime();
 	philo->meal_count -= (philo->meal_count != -1);
 	if (philo->meal_count == 0)
 	{
 		sem_post(philo->sem_lock);
-		sem_post(philo->sem_forks);
-		sem_post(philo->sem_forks);
 		exit(0);
 	}
 	sem_post(philo->sem_lock);
-	sem_post(philo->sem_forks);
-	sem_post(philo->sem_forks);
 	return (0);
 }
 

@@ -6,12 +6,11 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 11:03:42 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 16:04:58 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
 void	*_main(void *arg)
 {
@@ -37,6 +36,7 @@ void	*_main(void *arg)
 int	main(int argc, char **argv)
 {
 	t_data	data;
+	int		i;
 
 	if (check_input(argc, argv) == -1)
 		return (-1);
@@ -47,8 +47,8 @@ int	main(int argc, char **argv)
 	data_init(&data, argc, argv);
 	if (create_threads(&data) == -1)
 		return (-1);
-	int i = 0;
 	monitor(&data);
+	i = 0;
 	while (i < data.numof_philos)
 	{
 		pthread_join(data.philos[i].philo, NULL);
