@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:17 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 11:03:38 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 11:29:07 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,13 @@ void	_usleep(size_t ms, t_philo *philo)
 	tosleep = getime();
 	while (getime() - tosleep < ms)
 	{
+		pthread_mutex_lock(philo->printf);
 		if (*philo->died)
+		{
+			pthread_mutex_unlock(philo->printf);
 			return ;
+		}
+		pthread_mutex_unlock(philo->printf);
 		usleep(50);
 	}
 }
