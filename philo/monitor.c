@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/07 18:13:46 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 10:35:48 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	someone_death(t_philo *philo, int *died)
 int	monitor(t_data *data)
 {
 	t_philo	*philo;
-	int	meal;
-	int	i;
+	int		meal;
+	int		i;
 
 	while (1)
 	{
