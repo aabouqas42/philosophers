@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 18:57:43 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 23:35:39 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 int	data_init(t_data *data, int argc, char **argv, int id)
 {
-	int		i;
 	int		meal_count;
 
-	i = 0;
 	meal_count = -1;
 	if (argc == 6)
 		meal_count = _atoi(argv[5]);
