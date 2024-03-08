@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 23:35:39 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 00:20:15 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,15 @@ int	create_proccess(t_data *data, int argc, char **argv)
 	while (i < data->numof_philos)
 	{
 		sem_name = _itoa(i + 3);
+		if (sem_name == NULL)
+			return (_puts("Unexpected Error\n", 2), _free(data), -1);
 		data->sem_lock = sem_open(sem_name, O_CREAT, 0666, 1);
+		free(sem_name);
 		philo_pid = fork();
 		if (philo_pid == 0)
 		{
 			data_init(data, argc, argv, i + 1);
 			_main(&data->philo);
-			exit(0);
 		}
 		data->ids[i] = philo_pid;
 		if (philo_pid == -1)

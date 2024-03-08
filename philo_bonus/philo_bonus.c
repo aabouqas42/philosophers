@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 18:58:15 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 00:32:37 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	_main(t_philo *philo)
 		sleeping(philo);
 		thinking(philo);
 	}
+	exit(0);
 }
 
 void	kill_all(int *philos, int number_of_philos)
@@ -57,6 +58,7 @@ int	main(int argc, char **argv)
 		if (ret == 3)
 		{
 			kill_all(data.ids, data.numof_philos);
+			_free(&data);
 			exit(0);
 		}
 	}
