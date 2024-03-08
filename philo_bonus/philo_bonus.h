@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:56:20 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 18:59:42 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/08 19:00:34 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_data
 	pid_t	*ids;
 	size_t	start_time;
 	t_philo	philo;
+	int		numof_philos;
 }	t_data;
 
 int		_atoi(char *s);
