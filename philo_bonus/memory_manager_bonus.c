@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:25 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/09 17:59:35 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:15:07 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ void	_free(t_data *data)
 	sem_close(data->sem_printf);
 	sem_unlink("sem_printf");
 	sem_unlink("sem_forks");
+	kill_all(data->ids, data->numof_philos);
 	i = 0;
 	while (i < data->numof_philos)
 	{
 		number = _itoa(i + 3);
-		if (number == NULL)
-			break;
 		sem_close(data->sem_locks[i]);
 		sem_unlink(number);
 		free(number);

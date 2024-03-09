@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/09 16:31:58 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:14:03 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@ int	create_proccess(t_data *data, int argc, char **argv)
 			data_init(data, argc, argv, i + 1);
 			_main(&data->philo);
 		}
-		data->ids[i] = philo_pid;
 		if (philo_pid == -1)
 			return (_puts("Unexpected Error\n", 2), -1);
+		data->ids[i] = philo_pid;
 		i++;
 	}
 	return (0);

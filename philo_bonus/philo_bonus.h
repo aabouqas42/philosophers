@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:56:20 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/09 16:11:17 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:12:39 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ int		taking_a_fork(t_philo *philo);
 int		eating(t_philo *philo);
 int		sleeping(t_philo *philo);
 int		thinking(t_philo *philo);
+void	kill_all(int *philos, int number_of_philos);
 
 #endif
