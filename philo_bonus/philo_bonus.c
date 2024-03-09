@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/09 14:39:00 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 16:39:44 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,16 @@ void	kill_all(int *philos, int number_of_philos)
 		i++;
 	}
 }
-void f()
-{
-	system("leaks philo_bonus");
-}
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
 	int		ret;
 
-	// atexit(f);
 	check_input(argc, argv);
 	memory_init(&data, argv);
 	if (create_proccess(&data, argc, argv) == -1)
-		return (-1);
+		return (_free(&data), -1);
 	ret = 0;
 	while (waitpid(-1, &ret, 0) != -1)
 	{
