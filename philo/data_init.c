@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 11:52:55 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 19:40:46 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	create_threads(t_data *data)
 	return (0);
 }
 
-int	data_init(t_data *data, int argc, char **argv)
+void	data_init(t_data *data, int argc, char **argv)
 {
 	size_t	start_time;
 	int		i;
@@ -68,7 +68,6 @@ int	data_init(t_data *data, int argc, char **argv)
 		i++;
 	}
 	forks_init(data);
-	return (0);
 }
 
 int	print_state(t_philo *philo, char *state)

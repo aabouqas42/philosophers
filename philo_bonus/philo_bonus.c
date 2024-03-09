@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/09 16:39:44 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:55:38 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	main(int argc, char **argv)
 		ret = WEXITSTATUS(ret);
 		if (ret == 3)
 		{
-			kill_all(data.ids, data.numof_philos);
 			_free(&data);
 			return (0);
 		}

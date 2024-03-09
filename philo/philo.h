@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:19 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 11:40:01 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 19:41:08 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		check_input(int argc, char **argv);
 void	_puts(char *s, int fd);
 void	_free(t_data *data);
 size_t	getime(void);
-int		data_init(t_data *data, int argc, char **argv);
+void	data_init(t_data *data, int argc, char **argv);
 int		memory_init(t_data *data, char **argv);
 int		create_threads(t_data *data);
 void	forks_init(t_data *data);

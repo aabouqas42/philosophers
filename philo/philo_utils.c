@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:17 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 15:45:15 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 19:06:55 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,6 @@ void	_usleep(size_t ms, t_philo *philo)
 			return ;
 		}
 		pthread_mutex_unlock(philo->printf);
-		usleep(50);
+		usleep(500);
 	}
 }

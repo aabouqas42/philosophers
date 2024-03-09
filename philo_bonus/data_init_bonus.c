@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/09 18:14:03 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 19:39:53 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	data_init(t_data *data, int argc, char **argv, int id)
 	return (0);
 }
 
-sem_t	*open_semaphopre(t_data *data, char *sem_name)
+static sem_t	*open_semaphopre(t_data *data, char *sem_name)
 {
 	sem_t	*fd;
 

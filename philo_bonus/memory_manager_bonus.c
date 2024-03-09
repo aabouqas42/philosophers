@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:25 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/09 18:15:07 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 18:58:20 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	memory_init(t_data *data, char **argv)
 	sem_unlink("sem_forks");
 	data->numof_philos = _atoi(argv[1]);
 	data->sem_printf = open_semaphopre("sem_printf", 1);
-	data->sem_forks = open_semaphopre("sem_forks", 1);
+	data->sem_forks = open_semaphopre("sem_forks", data->numof_philos);
 	data->ids = malloc (data->numof_philos * sizeof(int));
 	if (data->ids == NULL)
 		(_puts("Unexpected Error\n", 2), exit(-1));

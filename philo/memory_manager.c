@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:25 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/07 18:44:30 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 19:37:24 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	_free(t_data *data)
 	int	i;
 
 	i = 0;
+	pthread_mutex_destroy(&data->printf);
 	while (i < data->numof_philos)
 	{
 		pthread_mutex_destroy(&data->forks[i]);
 		pthread_mutex_destroy(&data->philos[i].lock);
 		i++;
 	}
-	pthread_mutex_destroy(&data->printf);
 	free (data->forks);
 	free (data->philos);
 }
@@ -34,13 +34,13 @@ int	mutex_init(t_data *data)
 
 	i = 0;
 	if (pthread_mutex_init(&data->printf, NULL))
-		return (_free(data), _puts("Unexpected Error\n", 2), -1);
+		return (_puts("Unexpected Error\n", 2), -1);
 	while (i < data->numof_philos)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL))
-			return (_free(data), _puts("Unexpected Error\n", 2), -1);
+			return (_puts("Unexpected Error\n", 2), -1);
 		if (pthread_mutex_init(&data->philos[i].lock, NULL))
-			return (_free(data), _puts("Unexpected Error\n", 2), -1);
+			return (_puts("Unexpected Error\n", 2), -1);
 		data->philos[i].printf = &data->printf;
 		i++;
 	}
