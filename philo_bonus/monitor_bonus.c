@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 16:18:49 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 19:21:13 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 13:01:46 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ void	*monitor(void *arg)
 	{
 		sem_wait(philo->sem_lock);
 		if (someone_death(philo))
+		{
+			sem_post(philo->sem_lock);
+			sem_close(philo->sem_lock);
 			exit(3);
+		}
 		sem_post(philo->sem_lock);
 	}
 	return (0);

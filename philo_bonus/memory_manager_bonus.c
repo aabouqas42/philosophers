@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:25 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/09 00:56:16 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 13:00:24 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	_free(t_data *data)
 	char	*number;
 
 	sem_close(data->sem_forks);
-	sem_close(data->sem_lock);
 	i = 0;
 	while (i < data->numof_philos)
 	{
@@ -36,7 +35,7 @@ int	memory_init(t_data *data, char **argv)
 	int		i;
 
 	i = 0;
-	while (i < data->numof_philos)
+	while (i < 200)
 	{
 		number = _itoa(i + 3);
 		if (number == NULL)
