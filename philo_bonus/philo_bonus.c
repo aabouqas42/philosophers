@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/09 12:56:37 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:39:00 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ int	main(int argc, char **argv)
 	t_data	data;
 	int		ret;
 
-	atexit(f);
-	if (check_input(argc, argv) == -1)
-		return (_free(&data), -1);
-	if (memory_init(&data, argv) == -1)
-		return (_free(&data), -1);
+	// atexit(f);
+	check_input(argc, argv);
+	memory_init(&data, argv);
 	if (create_proccess(&data, argc, argv) == -1)
 		return (-1);
 	ret = 0;
@@ -64,7 +62,7 @@ int	main(int argc, char **argv)
 		{
 			kill_all(data.ids, data.numof_philos);
 			_free(&data);
-			exit(0);
+			return (0);
 		}
 	}
 	_free(&data);

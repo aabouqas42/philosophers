@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 22:56:20 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 19:00:34 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:03:17 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_data
 	sem_t	*sem_printf;
 	sem_t	*sem_forks;
 	sem_t	*sem_lock;
+	sem_t	**sem_locks;
 	pid_t	*ids;
 	size_t	start_time;
 	t_philo	philo;
@@ -53,12 +54,12 @@ typedef struct s_data
 }	t_data;
 
 int		_atoi(char *s);
-int		check_input(int argc, char **argv);
+void	check_input(int argc, char **argv);
 void	_puts(char *s, int fd);
 void	_free(t_data *data);
 size_t	getime(void);
 int		data_init(t_data *data, int argc, char **argv, int id);
-int		memory_init(t_data *data, char **argv);
+void	memory_init(t_data *data, char **argv);
 int		create_proccess(t_data *data, int argc, char **argv);
 void	forks_init(t_data *data);
 void	_main(t_philo *data);
@@ -66,7 +67,6 @@ int		print_state(t_philo *philo, char *state);
 void	_usleep(size_t ms);
 void	*monitor(void *arg);
 char	*_itoa(int number);
-int		memory_init(t_data *data, char **argv);
 int		taking_a_fork(t_philo *philo);
 int		eating(t_philo *philo);
 int		sleeping(t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 11:01:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/09 00:59:23 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:15:30 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,20 @@ int	data_init(t_data *data, int argc, char **argv, int id)
 	return (0);
 }
 
+sem_t	*open_semaphopre(t_data *data, char *sem_name)
+{
+	sem_t	*fd;
+
+	fd = sem_open(sem_name, O_CREAT, 0666, 1);
+	free(sem_name);
+	if (fd == SEM_FAILED)
+	{
+		_free(data);
+		exit (0);
+	}
+	return (fd);
+}
+
 int	create_proccess(t_data *data, int argc, char **argv)
 {
 	char	*sem_name;
@@ -45,9 +59,9 @@ int	create_proccess(t_data *data, int argc, char **argv)
 	{
 		sem_name = _itoa(i + 3);
 		if (sem_name == NULL)
-			return (_puts("Unexpected Error\n", 2), _free(data), -1);
-		data->sem_lock = sem_open(sem_name, O_CREAT, 0666, 1);
-		free(sem_name);
+			return (_puts("Unexpected Error\n", 2), -1);
+		data->sem_lock = open_semaphopre(data, sem_name);
+		data->sem_locks[i] = data->sem_lock;
 		philo_pid = fork();
 		if (philo_pid == 0)
 		{

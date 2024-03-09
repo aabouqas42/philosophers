@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_utils.c                                      :+:      :+:    :+:   */
+/*   philo_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:17 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/03 22:56:54 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 14:05:52 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,33 @@ int	_atoi(char *s)
 	return (number);
 }
 
-int	check_input(int argc, char **argv)
+void	check_input(int argc, char **argv)
 {
 	int	i;
 
 	i = 1;
 	if (argc == 6)
+	{
 		if (_atoi(argv[5]) == -1)
-			return (_puts("Input Error\n", 2), -1);
+		{
+			_puts("Input Error\n", 2);
+			exit (-1);
+		}
+	}
 	if (argc < 5 || argc > 6)
-		return (_puts("Input Error\n", 2), -1);
+	{
+		_puts("Input Error\n", 2);
+		exit (-1);
+	}
 	while (argv[i])
-		if (_atoi(argv[i++]) == -1)
-			return (_puts("Input Error\n", 2), -1);
-	return (0);
+	{
+		if (_atoi(argv[i]) == -1)
+		{
+			_puts("Input Error\n", 2);
+			exit(-1);
+		}
+		i++;
+	}
 }
 
 size_t	getime(void)
