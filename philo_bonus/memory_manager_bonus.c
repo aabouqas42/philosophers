@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:25 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/09 17:55:17 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/09 17:57:12 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	_free(t_data *data)
 	free (data->ids);
 }
 
-sem_t	*open_semaphopre(t_data *data, char *name, int value)
+sem_t	*open_semaphopre(char *name, int value)
 {
 	sem_t	*fd;
 
@@ -65,8 +65,8 @@ void	memory_init(t_data *data, char **argv)
 	sem_unlink("sem_printf");
 	sem_unlink("sem_forks");
 	data->numof_philos = _atoi(argv[1]);
-	data->sem_printf = open_semaphopre(data, "sem_printf", 1);
-	data->sem_forks = open_semaphopre(data, "sem_forks", 1);
+	data->sem_printf = open_semaphopre("sem_printf", 1);
+	data->sem_forks = open_semaphopre("sem_forks", 1);
 	data->ids = malloc (data->numof_philos * sizeof(int));
 	if (data->ids == NULL)
 		(_puts("Unexpected Error\n", 2), exit(-1));
