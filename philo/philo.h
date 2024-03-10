@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:19 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/09 19:41:08 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/10 09:52:59 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define EATING "is eating"
 # define TAKING_FORK "has taken a fork"
 # define SLEAPING "is sleeping"
+# define UNEXERR "Unexpected Error\n"
 
 typedef struct s_philo
 {

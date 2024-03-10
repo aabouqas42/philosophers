@@ -6,10 +6,9 @@
 #    By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/26 10:22:26 by aabouqas          #+#    #+#              #
-#    Updated: 2024/03/09 19:03:52 by aabouqas         ###   ########.fr        #
+#    Updated: 2024/03/10 10:36:54 by aabouqas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 CC = cc 
 CFLAGS = -Wextra -Werror -Wall
@@ -32,7 +31,7 @@ fclean: clean
 	rm -f $(NAME)
 
 clean:
-	rm -rf $(OBJ)
-	rm -rf $(MAIN_OBJ)
+	rm -f $(OBJ)
+	rm -f $(MAIN_OBJ)
 
 .PHONY: clean 

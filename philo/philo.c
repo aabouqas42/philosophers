@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 10:22:11 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/08 19:39:46 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/10 10:34:52 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	main(int argc, char **argv)
 	t_data	data;
 	int		i;
 
+	data.forks = NULL;
+	data.philos = NULL;
 	if (check_input(argc, argv) == -1)
 		return (-1);
 	if (memory_init(&data, argv) == -1)

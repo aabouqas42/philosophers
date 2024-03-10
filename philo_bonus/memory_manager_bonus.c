@@ -6,7 +6,7 @@
 /*   By: aabouqas <aabouqas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:25 by aabouqas          #+#    #+#             */
-/*   Updated: 2024/03/09 18:58:20 by aabouqas         ###   ########.fr       */
+/*   Updated: 2024/03/10 09:58:31 by aabouqas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ sem_t	*open_semaphopre(char *name, int value)
 	fd = sem_open(name, O_CREAT, 0666, value);
 	if (fd == SEM_FAILED)
 	{
-		_puts("Unexpected Error\n", 2);
+		_puts(UNEXERR, 2);
 		exit(-1);
 	}
 	return (fd);
@@ -58,7 +58,7 @@ void	memory_init(t_data *data, char **argv)
 	{
 		number = _itoa(i + 3);
 		if (number == NULL)
-			(_puts("Unexpected Error\n", 2), exit(-1));
+			(_puts(UNEXERR, 2), exit(-1));
 		sem_unlink(number);
 		free(number);
 		i++;
@@ -70,8 +70,8 @@ void	memory_init(t_data *data, char **argv)
 	data->sem_forks = open_semaphopre("sem_forks", data->numof_philos);
 	data->ids = malloc (data->numof_philos * sizeof(int));
 	if (data->ids == NULL)
-		(_puts("Unexpected Error\n", 2), exit(-1));
+		(_puts(UNEXERR, 2), exit(-1));
 	data->sem_locks = malloc (sizeof(sem_t *) * data->numof_philos);
 	if (data->sem_locks == NULL)
-		(_puts("Unexpected Error\n", 2), free (data->ids), exit(-1));
+		(_puts(UNEXERR, 2), free (data->ids), exit(-1));
 }
